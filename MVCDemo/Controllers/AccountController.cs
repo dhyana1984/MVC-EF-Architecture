@@ -43,7 +43,7 @@ namespace MVCDemo.Controllers
         public ActionResult Register()
         {
             return View();
-        }
+        } 
       
 	}
 }

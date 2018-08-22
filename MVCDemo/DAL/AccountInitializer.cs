@@ -21,7 +21,7 @@ namespace MVCDemo.DAL
 
             var sysRole = new List<SysRole>
             {
-                new SysRole{RoleName="Administrator",RoleDesc="Administrator has full athorization."}
+                new SysRole{RoleName="Administrator",RoleDesc="Administrator has full athorization."},
                 new SysRole{RoleName="General Users",RoleDesc="General Users can access the shared data."}
             };
             sysRole.ForEach(s => context.SysRoles.Add(s));
