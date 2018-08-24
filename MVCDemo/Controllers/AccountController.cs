@@ -1,4 +1,5 @@
 ﻿using MVCDemo.DAL;
+using MVCDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MVCDemo.Controllers
         // GET: /Account/
         public ActionResult Index()
         {
-            return View();
+            return View(db.SysUsers);
         }
 
         public ActionResult Login()
@@ -44,6 +45,12 @@ namespace MVCDemo.Controllers
         {
             return View();
         } 
+
+        public ActionResult Details(int id)
+        {
+            SysUser sysUser = db.SysUsers.Find(id);
+            return View(sysUser);
+        }
       
 	}
 }
