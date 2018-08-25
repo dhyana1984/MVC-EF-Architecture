@@ -12,6 +12,7 @@
     <title>Index</title>
 </head>
 <body>
+    <p>@Html.ActionLink("CreateNew","Create")</p>
     <table>
         <tr>
             <th>@Html.DisplayNameFor(model => model.UserName)</th>
@@ -30,6 +31,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details","Details",new { id = item.ID})
+                    @Html.ActionLink("Edit","Edit", new { id=item.ID})
+                    @Html.ActionLink("Delete","Delete", new { id = item.ID })
                 </td>
             </tr>
         }

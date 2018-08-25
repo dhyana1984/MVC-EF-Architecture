@@ -1,0 +1,43 @@
+﻿@using MVCDemo.Models;
+@model  SysUser
+@{
+                /**/
+
+                Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <dl>
+        <dt>@Html.DisplayNameFor(model => model.UserName)</dt>
+        <dd>@Html.DisplayFor(model => model.UserName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SysUserRoles)</dt>
+        <dd>
+            <table>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Role Desc</th>
+                </tr>
+                @foreach (var item in Model.SysUserRoles)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.SysRole.RoleName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SysRole.RoleDesc)</td>
+                </tr>
+                }
+            </table>
+
+        </dd>
+    </dl>
+</body>
+</html>

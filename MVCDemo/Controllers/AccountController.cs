@@ -2,6 +2,7 @@
 using MVCDemo.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,6 +52,48 @@ namespace MVCDemo.Controllers
             SysUser sysUser = db.SysUsers.Find(id);
             return View(sysUser);
         }
-      
-	}
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(SysUser user)
+        {
+            db.SysUsers.Add(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            SysUser user = db.SysUsers.SingleOrDefault(t => t.ID == id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(SysUser user)
+        {
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            SysUser user = db.SysUsers.SingleOrDefault(t=>t.ID==id);
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            SysUser user = db.SysUsers.SingleOrDefault(t => t.ID == id);
+            db.SysUsers.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+    }
 }
