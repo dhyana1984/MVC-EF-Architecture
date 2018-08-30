@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace MVCDemo.Controllers
 {
     public class AccountController : Controller
@@ -14,9 +13,39 @@ namespace MVCDemo.Controllers
         private AccountContext db = new AccountContext();
         //
         // GET: /Account/
-        public ActionResult Index()
         {
-            return View(db.SysUsers);
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if(searchString!=null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            var users = from u in db.SysUsers select u;
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(t => t.UserName.Contains(searchString));
+            }
+            switch(sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(t => t.UserName);
+                    break;
+                default:
+                    users = users.OrderBy(t => t.UserName);
+                    break;
+            }
+
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(users.ToPagedList(pageNumber,pageSize));
         }
 
         public ActionResult Login()
