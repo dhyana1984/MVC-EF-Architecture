@@ -45,7 +45,18 @@ namespace MVCDemo.Controllers
         public ActionResult Register()
         {
             return View();
-        } 
+        }
+        [HttpPost]
+        public ActionResult Register(FormCollection fc)
+        {
+            //获取表单数据
+            string email = fc["inputEmail3"];
+            string password = fc["inputPassword3"];
+
+            //进行下一步处理，这里先改下文字
+            ViewBag.LoginState = "注册账号 " + email;
+            return View();
+        }
 
         public ActionResult Details(int id)
         {
@@ -94,6 +105,8 @@ namespace MVCDemo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+ 
 
     }
 }
