@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 namespace MVCDemo.Controllers
 {
     public class AccountController : Controller
@@ -13,6 +14,7 @@ namespace MVCDemo.Controllers
         private AccountContext db = new AccountContext();
         //
         // GET: /Account/
+        public ActionResult Index(string sortOrder,string searchString,string currentFilter,int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
