@@ -333,4 +333,8 @@ ASALocalRun/
 OpenSource
 
 #WebConfig
+<<<<<<< HEAD
 *config
+=======
+*.config
+>>>>>>> 47829d478e05d191f07926abbb016a48f86c1a02
