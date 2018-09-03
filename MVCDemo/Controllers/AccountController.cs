@@ -14,12 +14,12 @@ namespace MVCDemo.Controllers
         private AccountContext db = new AccountContext();
         //
         // GET: /Account/
-        public ActionResult Index(string sortOrder,string searchString,string currentFilter,int? page)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
-            if(searchString!=null)
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -29,12 +29,12 @@ namespace MVCDemo.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            var users = from u in db.SysUsers select u;
-            if(!string.IsNullOrEmpty(searchString))
+            var users = db.SysUsers.Include(t=>t.SysDepartment);
+            if (!string.IsNullOrEmpty(searchString))
             {
                 users = users.Where(t => t.UserName.Contains(searchString));
             }
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "name_desc":
                     users = users.OrderByDescending(t => t.UserName);
@@ -47,14 +47,14 @@ namespace MVCDemo.Controllers
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(users.ToPagedList(pageNumber,pageSize));
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Login()
         {
             ViewBag.LoginState = "登录前。。。";
             return View();
-        
+
         }
 
         [HttpPost]
@@ -63,11 +63,11 @@ namespace MVCDemo.Controllers
             string email = fc["inputEmail3"];
             string password = fc["inputPassword3"];
             var user = db.SysUsers.SingleOrDefault(t => t.Email == email && t.Password == password);
-            if(user!=null)
-            { 
-                ViewBag.LoginState =email+ "登录后。。。";
+            if (user != null)
+            {
+                ViewBag.LoginState = email + "登录后。。。";
             }
-            else 
+            else
             {
                 ViewBag.LoginState = email + "用户不存在！";
             }
@@ -103,9 +103,13 @@ namespace MVCDemo.Controllers
         [HttpPost]
         public ActionResult Create(SysUser user)
         {
-            db.SysUsers.Add(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.SysUsers.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         public ActionResult Edit(int id)
@@ -124,7 +128,7 @@ namespace MVCDemo.Controllers
 
         public ActionResult Delete(int id)
         {
-            SysUser user = db.SysUsers.SingleOrDefault(t=>t.ID==id);
+            SysUser user = db.SysUsers.SingleOrDefault(t => t.ID == id);
             return View(user);
         }
 
@@ -137,7 +141,7 @@ namespace MVCDemo.Controllers
             return RedirectToAction("Index");
         }
 
- 
+
 
     }
 }
