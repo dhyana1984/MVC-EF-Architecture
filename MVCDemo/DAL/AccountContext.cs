@@ -20,6 +20,7 @@ namespace MVCDemo.DAL
         public DbSet<SysRole> SysRoles { get; set; }
 
         public DbSet<SysUserRole> SysUserRoles{get;set;}
+        public DbSet<SysDepartment> SysDepartments{get;set;}
 
         public DbSet<Test> Tests { get; set; }
       

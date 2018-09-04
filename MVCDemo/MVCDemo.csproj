@@ -142,6 +142,7 @@
     <Compile Include="Models\SysUserRole.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AssignedRoleData.cs" />
     <Compile Include="ViewModels\UserRoleIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,8 @@
     <Content Include="Views\MVCDemo\_PartialPageDateTime.cshtml" />
     <Content Include="Views\MVCDemo\SharedDateDemo.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
+    <Content Include="Views\UserRole\Edit.cshtml" />
+    <Content Include="Views\UserRole\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
